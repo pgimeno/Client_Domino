@@ -17,12 +17,26 @@ namespace Client_Domino.Controllers
         public Jugador jugador;
         public string textHintConnectionString = "IP del host de la partida";
         public string textHintPlayerName = "Introdueix el teu nom";
+        List<Button> llistaFitxesBotons;
 
         public ClientController()
         {
             f = new Form1();
             InitListeners();
+            llistaFitxesBotons = new List<Button>();
+            GetAllButtonsInForm();
             Application.Run(f);
+        }
+
+        private void GetAllButtonsInForm()
+        {
+            foreach (Control ctrl in f.grup_fitxes.Controls)
+            {
+                if(ctrl is Button)
+                {
+                    llistaFitxesBotons.Add((Button)ctrl);
+                }
+            }
         }
 
         private void InitListeners()
@@ -83,7 +97,7 @@ namespace Client_Domino.Controllers
         {
             f.bt_StartGame.Enabled = false;
             f.tb_ConnectionString.Enabled = false;
-            f.tb_ConnectionString.Enabled = false;
+            f.tb_PlayerName.Enabled = false;
         }
 
         public async Task SocketGame()
