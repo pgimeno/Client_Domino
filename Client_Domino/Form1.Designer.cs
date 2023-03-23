@@ -34,13 +34,13 @@
             this.bt_StartGame = new System.Windows.Forms.Button();
             this.board_fitxes = new System.Windows.Forms.Label();
             this.grup_fitxes = new System.Windows.Forms.GroupBox();
-            this.fitxa1 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.fitxa1 = new System.Windows.Forms.Button();
             this.grup_fitxes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,6 +96,7 @@
             this.board_fitxes.Size = new System.Drawing.Size(814, 329);
             this.board_fitxes.TabIndex = 4;
             this.board_fitxes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.board_fitxes.Visible = false;
             // 
             // grup_fitxes
             // 
@@ -115,51 +116,16 @@
             this.grup_fitxes.TabIndex = 5;
             this.grup_fitxes.TabStop = false;
             this.grup_fitxes.Text = "Les teves fitxes";
+            this.grup_fitxes.Visible = false;
             // 
-            // fitxa1
+            // button6
             // 
-            this.fitxa1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.fitxa1.Location = new System.Drawing.Point(37, 31);
-            this.fitxa1.Name = "fitxa1";
-            this.fitxa1.Size = new System.Drawing.Size(99, 48);
-            this.fitxa1.TabIndex = 0;
-            this.fitxa1.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(142, 31);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 48);
-            this.button1.TabIndex = 0;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(247, 31);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(99, 48);
-            this.button2.TabIndex = 0;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Location = new System.Drawing.Point(352, 31);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(99, 48);
-            this.button3.TabIndex = 0;
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button4.Location = new System.Drawing.Point(457, 31);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(99, 48);
-            this.button4.TabIndex = 0;
-            this.button4.UseVisualStyleBackColor = true;
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button6.Location = new System.Drawing.Point(667, 31);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(99, 48);
+            this.button6.TabIndex = 0;
+            this.button6.UseVisualStyleBackColor = true;
             // 
             // button5
             // 
@@ -170,14 +136,50 @@
             this.button5.TabIndex = 0;
             this.button5.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // button4
             // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button6.Location = new System.Drawing.Point(667, 31);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(99, 48);
-            this.button6.TabIndex = 0;
-            this.button6.UseVisualStyleBackColor = true;
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button4.Location = new System.Drawing.Point(457, 31);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(99, 48);
+            this.button4.TabIndex = 0;
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button3.Location = new System.Drawing.Point(352, 31);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(99, 48);
+            this.button3.TabIndex = 0;
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button2.Location = new System.Drawing.Point(247, 31);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(99, 48);
+            this.button2.TabIndex = 0;
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Location = new System.Drawing.Point(142, 31);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(99, 48);
+            this.button1.TabIndex = 0;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // fitxa1
+            // 
+            this.fitxa1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.fitxa1.Location = new System.Drawing.Point(37, 31);
+            this.fitxa1.Name = "fitxa1";
+            this.fitxa1.Size = new System.Drawing.Size(99, 48);
+            this.fitxa1.TabIndex = 0;
+            this.fitxa1.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

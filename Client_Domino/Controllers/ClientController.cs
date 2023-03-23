@@ -18,6 +18,7 @@ namespace Client_Domino.Controllers
         public string textHintConnectionString = "IP del host de la partida";
         public string textHintPlayerName = "Introdueix el teu nom";
         List<Button> llistaFitxesBotons;
+        ClientWebSocket socket;
 
         public ClientController()
         {
@@ -32,7 +33,7 @@ namespace Client_Domino.Controllers
         {
             foreach (Control ctrl in f.grup_fitxes.Controls)
             {
-                if(ctrl is Button)
+                if (ctrl is Button)
                 {
                     llistaFitxesBotons.Add((Button)ctrl);
                 }
@@ -53,7 +54,16 @@ namespace Client_Domino.Controllers
             string playerName = f.tb_PlayerName.Text.ToString();
             string connectionString = f.tb_ConnectionString.Text.ToString();
             DisableConfigComponents();
+            EnableBoardAndTiles();
             jugador = new Jugador(playerName, connectionString);
+
+            //SocketGame().Wait();
+        }
+
+        private void EnableBoardAndTiles()
+        {
+            f.board_fitxes.Visible = true;
+            f.grup_fitxes.Visible = true;
         }
 
         private void Tb_ConnectionString_LostFocus(object sender, EventArgs e)
@@ -100,11 +110,13 @@ namespace Client_Domino.Controllers
             f.tb_PlayerName.Enabled = false;
         }
 
-        public async Task SocketGame()
+        //Old socket config
+        /*
+        public async Task SocketGameOld()
         {
 
             var cts = new CancellationTokenSource();
-            var socket = new ClientWebSocket();
+            socket = new ClientWebSocket();
 
             //TODO: Modificar wsUri de local a agafar jugador.ConnectedToString
 
@@ -113,6 +125,11 @@ namespace Client_Domino.Controllers
             Console.WriteLine(socket.State);
 
             var buffer = new byte[256];
+
+            //llista buida preparada per rebre les fitxes que envii el server
+            List<string> fitxesRebudes = new List<string>();
+            bool isPlayerTurn = false;
+
             if (socket.State == WebSocketState.Open)
             {
                 await Task.Factory.StartNew(
@@ -159,7 +176,66 @@ namespace Client_Domino.Controllers
                 }
                 
                  */
+
+        public async Task SocketGame()
+        {
+            var cts = new CancellationTokenSource();
+            socket = new ClientWebSocket();
+
+            //TODO: Modificar wsUri de local a agafar jugador.ConnectedToString
+
+            string wsUri = $"ws://localhost:6666/ws/{jugador.Nom}";
+            await socket.ConnectAsync(new Uri(wsUri), cts.Token);
+            Console.WriteLine(socket.State);
+
+            var buffer = new byte[1024]; // increase buffer size if necessary
+            var receivedTiles = new List<string>();
+            bool isMyTurn = false;
+
+            while (socket.State == WebSocketState.Open)
+            {
+                var rcvBuffer = new ArraySegment<byte>(buffer);
+
+                var receiveResult = await socket.ReceiveAsync(rcvBuffer, CancellationToken.None);
+
+                if (receiveResult.MessageType == WebSocketMessageType.Text)
+                {
+                    var receivedData = Encoding.UTF8.GetString(buffer, 0, receiveResult.Count);
+
+                    // es mira si és el torn del jugador o no. El servidor ha d'enviar el missatge true o false;
+                    if (receivedData.ToLower() == "true" || receivedData.ToLower() == "false")
+                    {
+                        isMyTurn = bool.Parse(receivedData.ToLower());
+                    }
+                    if (receivedData.ToLower().Contains(";")) // quan el servidor envii la llista de fitxes separades cada una per ;
+                    {
+                        receivedTiles.AddRange(receivedData.Split(';')); // assuming tiles are separated by ';'
+
+                        for (int i = 0; i < receivedTiles.Count; i++)
+                        {
+                            llistaFitxesBotons[i].Text = receivedTiles[i];
+                        }
+                    }
+                }
+                else if (receiveResult.MessageType == WebSocketMessageType.Close)
+                {
+                    await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, null, CancellationToken.None);
+                }
+
+                // do something with the received data here
+                if (isMyTurn)
+                {
+                    //f.grup_fitxes.Enabled = true;
+                }
+                if (!isMyTurn)
+                {
+                    //f.grup_fitxes.Enabled = false;
+                }
+
             }
         }
+
+
+
     }
 }
