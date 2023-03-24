@@ -41,6 +41,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.fitxa1 = new System.Windows.Forms.Button();
+            this.lbl_missatgesDelServidor = new System.Windows.Forms.Label();
             this.grup_fitxes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,7 +50,7 @@
             this.lbl_txt_ConfiguraPartida.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_txt_ConfiguraPartida.AutoSize = true;
             this.lbl_txt_ConfiguraPartida.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_txt_ConfiguraPartida.Location = new System.Drawing.Point(23, 18);
+            this.lbl_txt_ConfiguraPartida.Location = new System.Drawing.Point(21, 24);
             this.lbl_txt_ConfiguraPartida.Name = "lbl_txt_ConfiguraPartida";
             this.lbl_txt_ConfiguraPartida.Size = new System.Drawing.Size(139, 18);
             this.lbl_txt_ConfiguraPartida.TabIndex = 0;
@@ -58,19 +59,19 @@
             // tb_ConnectionString
             // 
             this.tb_ConnectionString.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tb_ConnectionString.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_ConnectionString.Location = new System.Drawing.Point(168, 13);
+            this.tb_ConnectionString.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb_ConnectionString.Location = new System.Drawing.Point(168, 21);
             this.tb_ConnectionString.Name = "tb_ConnectionString";
-            this.tb_ConnectionString.Size = new System.Drawing.Size(148, 26);
+            this.tb_ConnectionString.Size = new System.Drawing.Size(250, 21);
             this.tb_ConnectionString.TabIndex = 1;
             // 
             // tb_PlayerName
             // 
             this.tb_PlayerName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tb_PlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_PlayerName.Location = new System.Drawing.Point(332, 13);
+            this.tb_PlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tb_PlayerName.Location = new System.Drawing.Point(424, 21);
             this.tb_PlayerName.Name = "tb_PlayerName";
-            this.tb_PlayerName.Size = new System.Drawing.Size(148, 26);
+            this.tb_PlayerName.Size = new System.Drawing.Size(239, 21);
             this.tb_PlayerName.TabIndex = 2;
             // 
             // bt_StartGame
@@ -79,9 +80,9 @@
             this.bt_StartGame.FlatAppearance.BorderColor = System.Drawing.Color.CadetBlue;
             this.bt_StartGame.FlatAppearance.BorderSize = 2;
             this.bt_StartGame.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.bt_StartGame.Location = new System.Drawing.Point(698, 13);
+            this.bt_StartGame.Location = new System.Drawing.Point(682, 10);
             this.bt_StartGame.Name = "bt_StartGame";
-            this.bt_StartGame.Size = new System.Drawing.Size(90, 40);
+            this.bt_StartGame.Size = new System.Drawing.Size(110, 32);
             this.bt_StartGame.TabIndex = 3;
             this.bt_StartGame.Text = "Uneix-te a la partida";
             this.bt_StartGame.UseVisualStyleBackColor = true;
@@ -91,9 +92,9 @@
             this.board_fitxes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.board_fitxes.BackColor = System.Drawing.Color.Snow;
-            this.board_fitxes.Location = new System.Drawing.Point(23, 74);
+            this.board_fitxes.Location = new System.Drawing.Point(23, 53);
             this.board_fitxes.Name = "board_fitxes";
-            this.board_fitxes.Size = new System.Drawing.Size(814, 329);
+            this.board_fitxes.Size = new System.Drawing.Size(812, 329);
             this.board_fitxes.TabIndex = 4;
             this.board_fitxes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.board_fitxes.Visible = false;
@@ -110,7 +111,7 @@
             this.grup_fitxes.Controls.Add(this.fitxa1);
             this.grup_fitxes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.grup_fitxes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grup_fitxes.Location = new System.Drawing.Point(26, 419);
+            this.grup_fitxes.Location = new System.Drawing.Point(24, 467);
             this.grup_fitxes.Name = "grup_fitxes";
             this.grup_fitxes.Size = new System.Drawing.Size(811, 100);
             this.grup_fitxes.TabIndex = 5;
@@ -188,11 +189,21 @@
             this.fitxa1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.fitxa1.UseVisualStyleBackColor = true;
             // 
+            // lbl_missatgesDelServidor
+            // 
+            this.lbl_missatgesDelServidor.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_missatgesDelServidor.Location = new System.Drawing.Point(200, 409);
+            this.lbl_missatgesDelServidor.Name = "lbl_missatgesDelServidor";
+            this.lbl_missatgesDelServidor.Size = new System.Drawing.Size(496, 27);
+            this.lbl_missatgesDelServidor.TabIndex = 6;
+            this.lbl_missatgesDelServidor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(849, 531);
+            this.ClientSize = new System.Drawing.Size(847, 593);
+            this.Controls.Add(this.lbl_missatgesDelServidor);
             this.Controls.Add(this.grup_fitxes);
             this.Controls.Add(this.board_fitxes);
             this.Controls.Add(this.bt_StartGame);
@@ -222,6 +233,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.Label lbl_missatgesDelServidor;
     }
 }
 

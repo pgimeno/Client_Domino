@@ -154,6 +154,11 @@ namespace Client_Domino.Controllers
 
                         }
                     }
+
+                    if (receivedData.ToLower().Equals("gamestarted"))
+                    {
+                        f.lbl_missatgesDelServidor.Text = "El joc ha començat!";
+                    }
                 }
                 else if (receiveResult.MessageType == WebSocketMessageType.Close)
                 {
