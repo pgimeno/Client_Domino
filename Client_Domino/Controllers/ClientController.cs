@@ -19,6 +19,7 @@ namespace Client_Domino.Controllers
         public string textHintPlayerName = "Introdueix el teu nom";
         List<Button> llistaFitxesBotons;
         ClientWebSocket socket;
+        public string connectionString;
 
         public ClientController()
         {
@@ -49,15 +50,14 @@ namespace Client_Domino.Controllers
             f.bt_StartGame.Click += Bt_StartGame_Click;
         }
 
-        private void Bt_StartGame_Click(object sender, EventArgs e)
+        private async void Bt_StartGame_Click(object sender, EventArgs e)
         {
             string playerName = f.tb_PlayerName.Text.ToString();
-            string connectionString = f.tb_ConnectionString.Text.ToString();
+            connectionString = "ws://localhost:6666/ws/";//f.tb_ConnectionString.Text.ToString();
             DisableConfigComponents();
             EnableBoardAndTiles();
             jugador = new Jugador(playerName, connectionString);
-
-            //SocketGame().Wait();
+            await SocketGame();
         }
 
         private void EnableBoardAndTiles()
@@ -109,74 +109,6 @@ namespace Client_Domino.Controllers
             f.tb_ConnectionString.Enabled = false;
             f.tb_PlayerName.Enabled = false;
         }
-
-        //Old socket config
-        /*
-        public async Task SocketGameOld()
-        {
-
-            var cts = new CancellationTokenSource();
-            socket = new ClientWebSocket();
-
-            //TODO: Modificar wsUri de local a agafar jugador.ConnectedToString
-
-            string wsUri = $"ws://localhost:6666/ws/{jugador.Nom}";
-            await socket.ConnectAsync(new Uri(wsUri), cts.Token);
-            Console.WriteLine(socket.State);
-
-            var buffer = new byte[256];
-
-            //llista buida preparada per rebre les fitxes que envii el server
-            List<string> fitxesRebudes = new List<string>();
-            bool isPlayerTurn = false;
-
-            if (socket.State == WebSocketState.Open)
-            {
-                await Task.Factory.StartNew(
-                    async () =>
-                    {
-                        var rcvBytes = new byte[256];
-                        var rcvBuffer = new ArraySegment<byte>(rcvBytes);
-                        while (true)
-                        {
-                            WebSocketReceiveResult rcvResult = await socket.ReceiveAsync(rcvBuffer, cts.Token);
-                            if (rcvResult.MessageType == WebSocketMessageType.Close)
-                            {
-                                await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, null, CancellationToken.None);
-                            }
-                            else //
-                            {
-                                byte[] msgBytes = rcvBuffer.Skip(rcvBuffer.Offset).Take(rcvResult.Count).ToArray();
-                                string rcvMsg = Encoding.UTF8.GetString(msgBytes);
-                                Console.WriteLine(rcvMsg);
-                            }
-                        }
-                    }, cts.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
-
-                /*
-
-                //ENVIA MISSATGE
-                while (true)
-                {
-                    string missatge = Console.ReadLine();
-
-                    //missatge per sortir
-                    if (missatge == "exit")
-                    {
-                        cts.Cancel();
-                        return;
-                    }
-
-
-                    byte[] sendBytes = Encoding.ASCII.GetBytes(missatge);
-                    var sendBuffer = new ArraySegment<byte>(sendBytes);
-                    await socket.SendAsync(sendBuffer, WebSocketMessageType.Text, endOfMessage: true, cancellationToken: cts.Token);
-
-
-                }
-                
-                 */
-
         public async Task SocketGame()
         {
             var cts = new CancellationTokenSource();
@@ -184,7 +116,7 @@ namespace Client_Domino.Controllers
 
             //TODO: Modificar wsUri de local a agafar jugador.ConnectedToString
 
-            string wsUri = $"ws://localhost:6666/ws/{jugador.Nom}";
+            string wsUri = $"{connectionString}{jugador.Nom}";
             await socket.ConnectAsync(new Uri(wsUri), cts.Token);
             Console.WriteLine(socket.State);
 
@@ -197,6 +129,9 @@ namespace Client_Domino.Controllers
                 var rcvBuffer = new ArraySegment<byte>(buffer);
 
                 var receiveResult = await socket.ReceiveAsync(rcvBuffer, CancellationToken.None);
+
+                //Added afer, maybe borrar si no funciona
+                cts.CancelAfter(TimeSpan.FromSeconds(30));
 
                 if (receiveResult.MessageType == WebSocketMessageType.Text)
                 {
