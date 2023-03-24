@@ -20,6 +20,7 @@ namespace Client_Domino.Controllers
         List<Button> llistaFitxesBotons;
         ClientWebSocket socket;
         public string connectionString;
+        public Font fontBotons = new Font("Arial", 35);
 
         public ClientController()
         {
@@ -148,13 +149,15 @@ namespace Client_Domino.Controllers
 
                         for (int i = 0; i < receivedTiles.Count; i++)
                         {
+                            llistaFitxesBotons[i].Font = fontBotons;
                             llistaFitxesBotons[i].Text = receivedTiles[i];
+
                         }
                     }
                 }
                 else if (receiveResult.MessageType == WebSocketMessageType.Close)
                 {
-                    await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, null, CancellationToken.None);
+                    await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing Connection...", CancellationToken.None);
                 }
 
                 // do something with the received data here
