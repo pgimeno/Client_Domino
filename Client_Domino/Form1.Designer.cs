@@ -59,11 +59,13 @@
             // tb_ConnectionString
             // 
             this.tb_ConnectionString.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tb_ConnectionString.Enabled = false;
             this.tb_ConnectionString.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_ConnectionString.Location = new System.Drawing.Point(168, 21);
             this.tb_ConnectionString.Name = "tb_ConnectionString";
             this.tb_ConnectionString.Size = new System.Drawing.Size(250, 21);
             this.tb_ConnectionString.TabIndex = 1;
+            this.tb_ConnectionString.Text = "ws://localhost:6666/ws/";
             // 
             // tb_PlayerName
             // 
@@ -92,6 +94,7 @@
             this.board_fitxes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.board_fitxes.BackColor = System.Drawing.Color.Snow;
+            this.board_fitxes.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F);
             this.board_fitxes.Location = new System.Drawing.Point(23, 53);
             this.board_fitxes.Name = "board_fitxes";
             this.board_fitxes.Size = new System.Drawing.Size(812, 329);

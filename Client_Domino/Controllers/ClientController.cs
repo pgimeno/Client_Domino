@@ -152,12 +152,20 @@ namespace Client_Domino.Controllers
                             llistaFitxesBotons[i].Font = fontBotons;
                             llistaFitxesBotons[i].Text = receivedTiles[i];
 
+                            //Listener al botó
+                            llistaFitxesBotons[i].Click += Button_Click;                            
                         }
                     }
 
                     if (receivedData.ToLower().Equals("gamestarted"))
                     {
-                        f.lbl_missatgesDelServidor.Text = "El joc ha començat!";
+                       f.lbl_missatgesDelServidor.Text = "El joc ha començat!";
+                        
+                    }
+                    if(receivedData.ToLower().Contains("!"))
+                    {
+                        string fitxaToShow = receivedData.Substring(1);
+                        f.board_fitxes.Text += fitxaToShow;
                     }
                 }
                 else if (receiveResult.MessageType == WebSocketMessageType.Close)
@@ -178,7 +186,14 @@ namespace Client_Domino.Controllers
             }
         }
 
-
-
+        //Listener del botó, envia el text del botó clickat
+        private async void Button_Click(object sender, EventArgs e)
+        {
+            //To do, diferenciar click left o right i comunicar a servidor
+            var button = (Button)sender;
+            var message = Encoding.UTF8.GetBytes(button.Text.ToString());
+            var sendBuffer = new ArraySegment<byte>(message);
+            await socket.SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
+        }
     }
 }
