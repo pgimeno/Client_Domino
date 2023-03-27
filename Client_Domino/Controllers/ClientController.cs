@@ -156,7 +156,7 @@ namespace Client_Domino.Controllers
                             llistaFitxesBotons[i].MouseDown += Button_Click;                            
                         }
                     }
-
+                    
                     if (receivedData.ToLower().Equals("gamestarted"))
                     {
                        f.lbl_missatgesDelServidor.Text = "El joc ha començat!";
@@ -164,24 +164,33 @@ namespace Client_Domino.Controllers
                     }
                     if(receivedData.ToLower().Contains("!"))
                     {
-                        string fitxaToShow = receivedData.Substring(1);
+                        //To do refactor
+                        string[] fitxes = receivedData.Split(':');
+
+                        string fitxaToShow = fitxes[0].Substring(1);
+                        string fitxaAuxiliar = fitxes[1];
                         f.board_fitxes.Text = fitxaToShow + f.board_fitxes.Text;
 
                         f.lbl_missatgesDelServidor.Text = "Fitxa colocada!";
                         f.lbl_missatgesDelServidor.ForeColor = Color.Green;
 
                         this.DesactivarBoto(fitxaToShow, llistaFitxesBotons);
+                        this.DesactivarBoto(fitxaAuxiliar, llistaFitxesBotons);
                         
                     }
                     if (receivedData.ToLower().Contains("?"))
                     {
-                        string fitxaToShow = receivedData.Substring(1);
+                        string[] fitxes = receivedData.Split(':');
+
+                        string fitxaToShow = fitxes[0].Substring(1);
+                        string fitxaAuxiliar = fitxes[1];
                         f.board_fitxes.Text += fitxaToShow;
 
                         f.lbl_missatgesDelServidor.Text = "Fitxa colocada!";
                         f.lbl_missatgesDelServidor.ForeColor = Color.Green;
 
                         this.DesactivarBoto(fitxaToShow, llistaFitxesBotons);
+                        this.DesactivarBoto(fitxaAuxiliar, llistaFitxesBotons);
                     }
                     if (receivedData.ToLower().Equals("fitxanovalida"))
                     {
@@ -193,6 +202,12 @@ namespace Client_Domino.Controllers
                     {
                         f.lbl_missatgesDelServidor.Text = "Espera el teu torn!";
                         f.lbl_missatgesDelServidor.ForeColor = Color.Red;
+
+                    }
+                    if (receivedData.ToLower().Contains("torn"))
+                    {
+                        string torn = receivedData.Substring(4);
+                        f.lbl_torn.Text = torn;
 
                     }
 

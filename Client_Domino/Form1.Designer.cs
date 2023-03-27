@@ -42,6 +42,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.fitxa1 = new System.Windows.Forms.Button();
             this.lbl_missatgesDelServidor = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lbl_torn = new System.Windows.Forms.Label();
             this.grup_fitxes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +65,7 @@
             this.tb_ConnectionString.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_ConnectionString.Location = new System.Drawing.Point(168, 21);
             this.tb_ConnectionString.Name = "tb_ConnectionString";
-            this.tb_ConnectionString.Size = new System.Drawing.Size(250, 21);
+            this.tb_ConnectionString.Size = new System.Drawing.Size(146, 21);
             this.tb_ConnectionString.TabIndex = 1;
             this.tb_ConnectionString.Text = "ws://localhost:6666/ws/";
             // 
@@ -71,9 +73,9 @@
             // 
             this.tb_PlayerName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tb_PlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_PlayerName.Location = new System.Drawing.Point(424, 21);
+            this.tb_PlayerName.Location = new System.Drawing.Point(320, 21);
             this.tb_PlayerName.Name = "tb_PlayerName";
-            this.tb_PlayerName.Size = new System.Drawing.Size(239, 21);
+            this.tb_PlayerName.Size = new System.Drawing.Size(155, 21);
             this.tb_PlayerName.TabIndex = 2;
             // 
             // bt_StartGame
@@ -201,11 +203,31 @@
             this.lbl_missatgesDelServidor.TabIndex = 6;
             this.lbl_missatgesDelServidor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(491, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Torn de: ";
+            // 
+            // lbl_torn
+            // 
+            this.lbl_torn.AutoSize = true;
+            this.lbl_torn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbl_torn.Location = new System.Drawing.Point(547, 21);
+            this.lbl_torn.Name = "lbl_torn";
+            this.lbl_torn.Size = new System.Drawing.Size(0, 20);
+            this.lbl_torn.TabIndex = 8;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(847, 593);
+            this.Controls.Add(this.lbl_torn);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lbl_missatgesDelServidor);
             this.Controls.Add(this.grup_fitxes);
             this.Controls.Add(this.board_fitxes);
@@ -237,6 +259,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         public System.Windows.Forms.Label lbl_missatgesDelServidor;
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Label lbl_torn;
     }
 }
 
