@@ -153,7 +153,7 @@ namespace Client_Domino.Controllers
                             llistaFitxesBotons[i].Text = receivedTiles[i];
 
                             //Listener al botó
-                            llistaFitxesBotons[i].Click += Button_Click;                            
+                            llistaFitxesBotons[i].MouseDown += Button_Click;                            
                         }
                     }
 
@@ -165,8 +165,39 @@ namespace Client_Domino.Controllers
                     if(receivedData.ToLower().Contains("!"))
                     {
                         string fitxaToShow = receivedData.Substring(1);
-                        f.board_fitxes.Text += fitxaToShow;
+                        f.board_fitxes.Text = fitxaToShow + f.board_fitxes.Text;
+
+                        f.lbl_missatgesDelServidor.Text = "Fitxa colocada!";
+                        f.lbl_missatgesDelServidor.ForeColor = Color.Green;
+
+                        this.DesactivarBoto(fitxaToShow, llistaFitxesBotons);
+                        
                     }
+                    if (receivedData.ToLower().Contains("?"))
+                    {
+                        string fitxaToShow = receivedData.Substring(1);
+                        f.board_fitxes.Text += fitxaToShow;
+
+                        f.lbl_missatgesDelServidor.Text = "Fitxa colocada!";
+                        f.lbl_missatgesDelServidor.ForeColor = Color.Green;
+
+                        this.DesactivarBoto(fitxaToShow, llistaFitxesBotons);
+                    }
+                    if (receivedData.ToLower().Equals("fitxanovalida"))
+                    {
+                        f.lbl_missatgesDelServidor.Text = "Aquesta fitxa no es pot posar!";
+                        f.lbl_missatgesDelServidor.ForeColor = Color.Orange;
+
+                    }
+                    if (receivedData.ToLower().Equals("notyourturn"))
+                    {
+                        f.lbl_missatgesDelServidor.Text = "Espera el teu torn!";
+                        f.lbl_missatgesDelServidor.ForeColor = Color.Red;
+
+                    }
+
+
+
                 }
                 else if (receiveResult.MessageType == WebSocketMessageType.Close)
                 {
@@ -186,12 +217,33 @@ namespace Client_Domino.Controllers
             }
         }
 
+        private void DesactivarBoto(string fitxaToShow, List<Button> llistaBotons)
+        {
+            foreach (var bt in llistaBotons)
+            {
+                if (bt.Text.ToString().Equals(fitxaToShow))
+                {
+                    bt.Enabled = false;
+                }
+            }
+        }
+
         //Listener del botó, envia el text del botó clickat
-        private async void Button_Click(object sender, EventArgs e)
+        private async void Button_Click(object sender, MouseEventArgs e)
         {
             //To do, diferenciar click left o right i comunicar a servidor
             var button = (Button)sender;
-            var message = Encoding.UTF8.GetBytes(button.Text.ToString());
+            string text="";
+
+            if (e.Button == MouseButtons.Left)
+            {
+                text = "!" + button.Text.ToString();
+            }
+            if (e.Button == MouseButtons.Right)
+            {
+                text = "?" + button.Text.ToString();
+            }
+            var message = Encoding.UTF8.GetBytes(text);
             var sendBuffer = new ArraySegment<byte>(message);
             await socket.SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
         }

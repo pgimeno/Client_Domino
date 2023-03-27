@@ -194,7 +194,7 @@
             // 
             // lbl_missatgesDelServidor
             // 
-            this.lbl_missatgesDelServidor.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_missatgesDelServidor.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
             this.lbl_missatgesDelServidor.Location = new System.Drawing.Point(200, 409);
             this.lbl_missatgesDelServidor.Name = "lbl_missatgesDelServidor";
             this.lbl_missatgesDelServidor.Size = new System.Drawing.Size(496, 27);
