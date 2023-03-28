@@ -44,6 +44,7 @@
             this.lbl_missatgesDelServidor = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lbl_torn = new System.Windows.Forms.Label();
+            this.bt_passarTorn = new System.Windows.Forms.Button();
             this.grup_fitxes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -221,11 +222,22 @@
             this.lbl_torn.Size = new System.Drawing.Size(0, 20);
             this.lbl_torn.TabIndex = 8;
             // 
+            // bt_passarTorn
+            // 
+            this.bt_passarTorn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bt_passarTorn.Location = new System.Drawing.Point(739, 438);
+            this.bt_passarTorn.Name = "bt_passarTorn";
+            this.bt_passarTorn.Size = new System.Drawing.Size(75, 23);
+            this.bt_passarTorn.TabIndex = 9;
+            this.bt_passarTorn.Text = "Pasar torn";
+            this.bt_passarTorn.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(847, 593);
+            this.Controls.Add(this.bt_passarTorn);
             this.Controls.Add(this.lbl_torn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbl_missatgesDelServidor);
@@ -261,6 +273,7 @@
         public System.Windows.Forms.Label lbl_missatgesDelServidor;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label lbl_torn;
+        public System.Windows.Forms.Button bt_passarTorn;
     }
 }
 

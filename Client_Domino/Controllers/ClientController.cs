@@ -49,6 +49,14 @@ namespace Client_Domino.Controllers
             f.tb_PlayerName.LostFocus += Tb_PlayerName_LostFocus;
             f.tb_ConnectionString.LostFocus += Tb_ConnectionString_LostFocus;
             f.bt_StartGame.Click += Bt_StartGame_Click;
+            f.bt_passarTorn.Click += Bt_passarTorn_Click;
+        }
+
+        private async void Bt_passarTorn_Click(object sender, EventArgs e)
+        {
+            var message = Encoding.UTF8.GetBytes("passarTorn");
+            var sendBuffer = new ArraySegment<byte>(message);
+            await socket.SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
         }
 
         private async void Bt_StartGame_Click(object sender, EventArgs e)
@@ -121,7 +129,7 @@ namespace Client_Domino.Controllers
             await socket.ConnectAsync(new Uri(wsUri), cts.Token);
             Console.WriteLine(socket.State);
 
-            var buffer = new byte[1024]; // increase buffer size if necessary
+            var buffer = new byte[1024];
             var receivedTiles = new List<string>();
             bool isMyTurn = false;
 
@@ -131,7 +139,7 @@ namespace Client_Domino.Controllers
 
                 var receiveResult = await socket.ReceiveAsync(rcvBuffer, CancellationToken.None);
 
-                //Added afer, maybe borrar si no funciona
+                //Added afer, borrar si no funciona
                 cts.CancelAfter(TimeSpan.FromSeconds(30));
 
                 if (receiveResult.MessageType == WebSocketMessageType.Text)
@@ -153,16 +161,16 @@ namespace Client_Domino.Controllers
                             llistaFitxesBotons[i].Text = receivedTiles[i];
 
                             //Listener al botó
-                            llistaFitxesBotons[i].MouseDown += Button_Click;                            
+                            llistaFitxesBotons[i].MouseDown += Button_Click;
                         }
                     }
-                    
+
                     if (receivedData.ToLower().Equals("gamestarted"))
                     {
-                       f.lbl_missatgesDelServidor.Text = "El joc ha començat!";
-                        
+                        f.lbl_missatgesDelServidor.Text = "El joc ha començat!";
+
                     }
-                    if(receivedData.ToLower().Contains("!"))
+                    if (receivedData.ToLower().Contains("!"))
                     {
                         //To do refactor
                         string[] fitxes = receivedData.Split(':');
@@ -176,7 +184,7 @@ namespace Client_Domino.Controllers
 
                         this.DesactivarBoto(fitxaToShow, llistaFitxesBotons);
                         this.DesactivarBoto(fitxaAuxiliar, llistaFitxesBotons);
-                        
+
                     }
                     if (receivedData.ToLower().Contains("?"))
                     {
@@ -211,22 +219,10 @@ namespace Client_Domino.Controllers
 
                     }
 
-
-
                 }
                 else if (receiveResult.MessageType == WebSocketMessageType.Close)
                 {
                     await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing Connection...", CancellationToken.None);
-                }
-
-                // do something with the received data here
-                if (isMyTurn)
-                {
-                    //f.grup_fitxes.Enabled = true;
-                }
-                if (!isMyTurn)
-                {
-                    //f.grup_fitxes.Enabled = false;
                 }
 
             }
@@ -242,13 +238,12 @@ namespace Client_Domino.Controllers
                 }
             }
         }
-
         //Listener del botó, envia el text del botó clickat
         private async void Button_Click(object sender, MouseEventArgs e)
         {
             //To do, diferenciar click left o right i comunicar a servidor
             var button = (Button)sender;
-            string text="";
+            string text = "";
 
             if (e.Button == MouseButtons.Left)
             {
