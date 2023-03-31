@@ -123,6 +123,8 @@ namespace Client_Domino.Controllers
             var cts = new CancellationTokenSource();
             socket = new ClientWebSocket();
 
+
+
             //TODO: Modificar wsUri de local a agafar jugador.ConnectedToString
 
             string wsUri = $"{connectionString}{jugador.Nom}";
@@ -132,6 +134,8 @@ namespace Client_Domino.Controllers
             var buffer = new byte[1024];
             var receivedTiles = new List<string>();
             bool isMyTurn = false;
+
+
 
             while (socket.State == WebSocketState.Open)
             {
@@ -146,7 +150,7 @@ namespace Client_Domino.Controllers
                 {
                     var receivedData = Encoding.UTF8.GetString(buffer, 0, receiveResult.Count);
 
-                    // es mira si és el torn del jugador o no. El servidor ha d'enviar el missatge true o false;
+                    //Es mira si és el torn del jugador o no. El servidor ha d'enviar el missatge true o false;
                     if (receivedData.ToLower() == "true" || receivedData.ToLower() == "false")
                     {
                         isMyTurn = bool.Parse(receivedData.ToLower());
@@ -164,13 +168,22 @@ namespace Client_Domino.Controllers
                             llistaFitxesBotons[i].MouseDown += Button_Click;
                         }
                     }
+                    if (receivedData.ToLower().Contains("&"))
+                    {
+                        f.lbl_missatgesDelServidor.Text = receivedData;
+                        foreach (var bt in llistaFitxesBotons)
+                        {
+                            bt.Enabled = false;
+                        }
+
+                    }
 
                     if (receivedData.ToLower().Equals("gamestarted"))
                     {
                         f.lbl_missatgesDelServidor.Text = "El joc ha començat!";
 
                     }
-                    if (receivedData.ToLower().Contains("!"))
+                    if (receivedData.ToLower().Contains("!") && !receivedData.ToLower().Contains("&"))
                     {
                         //To do refactor
                         string[] fitxes = receivedData.Split(':');
@@ -184,6 +197,7 @@ namespace Client_Domino.Controllers
 
                         this.DesactivarBoto(fitxaToShow, llistaFitxesBotons);
                         this.DesactivarBoto(fitxaAuxiliar, llistaFitxesBotons);
+                        this.checkUserWon(llistaFitxesBotons);
 
                     }
                     if (receivedData.ToLower().Contains("?"))
@@ -199,6 +213,7 @@ namespace Client_Domino.Controllers
 
                         this.DesactivarBoto(fitxaToShow, llistaFitxesBotons);
                         this.DesactivarBoto(fitxaAuxiliar, llistaFitxesBotons);
+                        this.checkUserWon(llistaFitxesBotons);
                     }
                     if (receivedData.ToLower().Equals("fitxanovalida"))
                     {
@@ -216,6 +231,7 @@ namespace Client_Domino.Controllers
                     {
                         string torn = receivedData.Substring(4);
                         f.lbl_torn.Text = torn;
+                        f.lbl_torn.BackColor = Color.AliceBlue; 
 
                     }
 
@@ -227,7 +243,23 @@ namespace Client_Domino.Controllers
 
             }
         }
-
+        private void checkUserWon(List<Button> llistaBotons)
+        {
+            var userWon = true;
+            foreach (var bt in llistaBotons)
+            {
+                if (bt.Enabled)
+                {
+                    userWon = false;
+                }
+            }
+            if (userWon)
+            {
+                var message = Encoding.UTF8.GetBytes("USERWON");
+                var sendBuffer = new ArraySegment<byte>(message);
+                socket.SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
+            }
+        }
         private void DesactivarBoto(string fitxaToShow, List<Button> llistaBotons)
         {
             foreach (var bt in llistaBotons)
